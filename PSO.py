@@ -3,11 +3,6 @@ import matplotlib.pyplot as plt
 
 import functions as f
 
-
-# ============================================================
-# Classe Partícula
-# ============================================================
-
 class Particle:
 
     def __init__(self, dim, bounds, objective_function):
@@ -80,11 +75,6 @@ class Particle:
             self.best_position = (
                 self.position.copy()
             )
-
-
-# ============================================================
-# PSO
-# ============================================================
 
 def particle_swarm_optimization(
     objective_function,
@@ -166,11 +156,6 @@ def particle_swarm_optimization(
         history
     )
 
-
-# ============================================================
-# Plot convergência
-# ============================================================
-
 def plot_convergence(history):
 
     plt.figure(figsize=(8, 5))
@@ -189,23 +174,11 @@ def plot_convergence(history):
     plt.show()
 
 
-# ============================================================
-# Execução
-# ============================================================
-
 if __name__ == "__main__":
-
-    # ========================================================
-    # Escolha da função
-    # ========================================================
 
     objective_function = f.f1
 
     bounds = (-100, 100)
-
-    # ========================================================
-    # 2) Executa PSO
-    # ========================================================
 
     best_position, best_value, history = (
         particle_swarm_optimization(
@@ -216,10 +189,6 @@ if __name__ == "__main__":
             bounds=bounds
         )
     )
-
-    # ========================================================
-    # 3) Plot convergência
-    # ========================================================
 
     plot_convergence(history)
 

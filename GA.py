@@ -3,11 +3,6 @@ import matplotlib.pyplot as plt
 
 import functions as f
 
-
-# ============================================================
-# Indivíduo
-# ============================================================
-
 class Individual:
 
     def __init__(
@@ -36,10 +31,7 @@ class Individual:
         )
 
 
-# ============================================================
 # Seleção por torneio
-# ============================================================
-
 def tournament_selection(
     population,
     tournament_size=5
@@ -57,11 +49,7 @@ def tournament_selection(
 
     return best
 
-
-# ============================================================
 # Crossover aritmético
-# ============================================================
-
 def crossover(parent1, parent2):
 
     alpha = np.random.rand()
@@ -75,10 +63,7 @@ def crossover(parent1, parent2):
     return child1, child2
 
 
-# ============================================================
 # Mutação gaussiana
-# ============================================================
-
 def mutation(
     chromosome,
     bounds,
@@ -104,10 +89,7 @@ def mutation(
     return chromosome
 
 
-# ============================================================
 # Algoritmo Genético
-# ============================================================
-
 def genetic_algorithm(
     objective_function,
     dim=30,
@@ -118,10 +100,7 @@ def genetic_algorithm(
     mutation_rate=0.1
 ):
 
-    # ========================================================
     # Inicializa população
-    # ========================================================
-
     population = [
 
         Individual(
@@ -133,10 +112,7 @@ def genetic_algorithm(
         for _ in range(population_size)
     ]
 
-    # ========================================================
     # Melhor indivíduo global
-    # ========================================================
-
     best_individual = min(
         population,
         key=lambda ind: ind.fitness
@@ -144,10 +120,7 @@ def genetic_algorithm(
 
     history = []
 
-    # ========================================================
     # Loop principal
-    # ========================================================
-
     for generation in range(generations):
 
         new_population = []
@@ -159,10 +132,7 @@ def genetic_algorithm(
 
         while len(new_population) < population_size:
 
-            # =================================================
             # Seleção
-            # =================================================
-
             parent1 = tournament_selection(
                 population,
             )
@@ -171,10 +141,7 @@ def genetic_algorithm(
                 population
             )
 
-            # =================================================
             # Crossover
-            # =================================================
-
             if np.random.rand() < crossover_rate:
 
                 child1_chromosome, child2_chromosome = (
@@ -191,10 +158,7 @@ def genetic_algorithm(
                     parent2.chromosome.copy()
                 )
 
-            # =================================================
             # Mutação
-            # =================================================
-
             child1_chromosome = mutation(
                 child1_chromosome,
                 bounds,
@@ -207,10 +171,7 @@ def genetic_algorithm(
                 mutation_rate
             )
 
-            # =================================================
             # Cria filhos
-            # =================================================
-
             child1 = Individual(
                 dim,
                 bounds,
@@ -235,16 +196,10 @@ def genetic_algorithm(
         #ELITISMO
         new_population[0] = elite
         
-        # =====================================================
         # Atualiza população
-        # =====================================================
-
         population = new_population[:population_size]
 
-        # =====================================================
         # Melhor indivíduo da geração
-        # =====================================================
-
         current_best = min(
             population,
             key=lambda ind: ind.fitness
@@ -269,10 +224,6 @@ def genetic_algorithm(
     )
 
 
-# ============================================================
-# Plot convergência
-# ============================================================
-
 def plot_convergence(history):
 
     plt.figure(figsize=(8, 5))
@@ -290,10 +241,6 @@ def plot_convergence(history):
 
     plt.show()
 
-
-# ============================================================
-# Execução
-# ============================================================
 
 if __name__ == "__main__":
 

@@ -3,11 +3,6 @@ import matplotlib.pyplot as plt
 
 import functions as f
 
-
-# ============================================================
-# Indivíduo
-# ============================================================
-
 class Individual:
 
     def __init__(
@@ -36,10 +31,6 @@ class Individual:
         )
 
 
-# ============================================================
-# Differential Evolution
-# ============================================================
-
 def differential_evolution(
     objective_function,
     dim=30,
@@ -50,10 +41,7 @@ def differential_evolution(
     CR=0.9
 ):
 
-    # ========================================================
     # Inicializa população
-    # ========================================================
-
     population = [
 
         Individual(
@@ -65,10 +53,7 @@ def differential_evolution(
         for _ in range(population_size)
     ]
 
-    # ========================================================
     # Melhor solução global
-    # ========================================================
-
     best_individual = min(
         population,
         key=lambda ind: ind.fitness
@@ -76,10 +61,7 @@ def differential_evolution(
 
     history = []
 
-    # ========================================================
     # Loop principal
-    # ========================================================
-
     for generation in range(generations):
         
         elite = min(
@@ -91,10 +73,7 @@ def differential_evolution(
 
             target = population[i]
 
-            # =================================================
             # Escolhe 3 indivíduos distintos
-            # =================================================
-
             indices = list(range(population_size))
 
             indices.remove(i)
@@ -109,11 +88,8 @@ def differential_evolution(
             b = population[b_idx]
             c = population[c_idx]
 
-            # =================================================
             # Mutação
             # v = a + F*(b - c)
-            # =================================================
-
             mutant_vector = (
                 a.vector
                 + F * (b.vector - c.vector)
@@ -125,10 +101,7 @@ def differential_evolution(
                 bounds[1]
             )
 
-            # =================================================
             # Crossover binomial
-            # =================================================
-
             trial_vector = np.copy(target.vector)
 
             j_rand = np.random.randint(dim)
@@ -142,18 +115,12 @@ def differential_evolution(
 
                     trial_vector[j] = mutant_vector[j]
 
-            # =================================================
             # Avalia vetor teste
-            # =================================================
-
             trial_fitness = objective_function(
                 trial_vector
             )
 
-            # =================================================
             # Seleção
-            # =================================================
-
             if trial_fitness < target.fitness:
 
                 target.vector = trial_vector
@@ -168,10 +135,7 @@ def differential_evolution(
         population.remove(worst)
         population.append(elite)
 
-        # =====================================================
         # Melhor indivíduo da geração
-        # =====================================================
-
         current_best = min(
             population,
             key=lambda ind: ind.fitness
@@ -195,11 +159,6 @@ def differential_evolution(
         history
     )
 
-
-# ============================================================
-# Plot convergência
-# ============================================================
-
 def plot_convergence(history):
 
     plt.figure(figsize=(8, 5))
@@ -217,10 +176,6 @@ def plot_convergence(history):
 
     plt.show()
 
-
-# ============================================================
-# Execução
-# ============================================================
 
 if __name__ == "__main__":
 

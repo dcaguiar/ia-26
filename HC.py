@@ -1,7 +1,3 @@
-# ============================================================
-# arquivo: hill_climbing.py
-# ============================================================
-
 import numpy as np
 
 
@@ -17,10 +13,7 @@ def hill_climbing(
     step_size=0.001
 ):
 
-    # ========================================================
     # Solução inicial
-    # ========================================================
-
     current_solution = initial_solution.copy()
 
     current_value = objective_function(
@@ -28,21 +21,12 @@ def hill_climbing(
     )
 
     best_solution = current_solution.copy()
-
     best_value = current_value
-
     history = [best_value]
 
-    # ========================================================
     # Loop principal
-    # ========================================================
-
     for iteration in range(max_iter):
-
-        # ====================================================
         # Gera vizinho
-        # ====================================================
-
         neighbor = (
             current_solution
             + np.random.normal(
@@ -62,10 +46,7 @@ def hill_climbing(
             neighbor
         )
 
-        # ====================================================
         # Aceita apenas melhoria
-        # ====================================================
-
         if neighbor_value < current_value:
 
             current_solution = neighbor

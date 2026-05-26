@@ -3,11 +3,6 @@ import matplotlib.pyplot as plt
 
 import functions as f
 
-
-# ============================================================
-# Simulated Annealing
-# ============================================================
-
 def simulated_annealing(
     objective_function,
     dim=30,
@@ -18,10 +13,7 @@ def simulated_annealing(
     step_size=1.0
 ):
 
-    # ========================================================
     # Solução inicial
-    # ========================================================
-
     current_solution = np.random.uniform(
         bounds[0],
         bounds[1],
@@ -32,32 +24,20 @@ def simulated_annealing(
         current_solution
     )
 
-    # ========================================================
     # Melhor solução global
-    # ========================================================
-
     best_solution = current_solution.copy()
 
     best_value = current_value
 
-    # ========================================================
     # Temperatura inicial
-    # ========================================================
-
     temperature = initial_temperature
 
     history = []
 
-    # ========================================================
     # Loop principal
-    # ========================================================
-
     for iteration in range(max_iter):
 
-        # ====================================================
         # Gera vizinho
-        # ====================================================
-
         neighbor = (
             current_solution
             + np.random.normal(
@@ -77,16 +57,10 @@ def simulated_annealing(
             neighbor
         )
 
-        # ====================================================
         # Diferença de energia
-        # ====================================================
-
         delta = neighbor_value - current_value
 
-        # ====================================================
         # Critério de aceitação
-        # ====================================================
-
         if delta < 0:
 
             # Melhor solução → aceita
@@ -105,10 +79,7 @@ def simulated_annealing(
                 current_solution = neighbor
                 current_value = neighbor_value
 
-        # ====================================================
         # Atualiza melhor global
-        # ====================================================
-
         if current_value < best_value:
 
             best_solution = (
@@ -117,10 +88,7 @@ def simulated_annealing(
 
             best_value = current_value
 
-        # ====================================================
         # Resfriamento
-        # ====================================================
-
         temperature *= cooling_rate
 
         history.append(best_value)
@@ -139,11 +107,6 @@ def simulated_annealing(
         history
     )
 
-
-# ============================================================
-# Plot convergência
-# ============================================================
-
 def plot_convergence(history):
 
     plt.figure(figsize=(8, 5))
@@ -161,10 +124,6 @@ def plot_convergence(history):
 
     plt.show()
 
-
-# ============================================================
-# Execução
-# ============================================================
 
 if __name__ == "__main__":
 
